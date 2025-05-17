@@ -5,6 +5,28 @@ html, body {
     background-color: #f0f4f8;
     color: #333;
 }
+.city-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+}
+
+.city-table th,
+.city-table td {
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.city-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.city-table tr:hover {
+  background-color: #f9f9f9;
+}
+
 
 h1, h2, h3, h4, h5, h6 {
     margin: 0;

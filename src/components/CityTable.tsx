@@ -6,11 +6,12 @@ import { City } from '../types/city';
 
 function slugifyCityName(name: string): string {
     return name
-        .normalize('NFKD')                      
-        .replace(/[\u0300-\u036f]/g, '')        
-        .replace(/^['‘’`´-]+/, '')              
-        .replace(/[^\w\s-]/g, '')              
-        .trim();
+        .normalize('NFKD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/^['‘’`´-]+/, '')
+        .replace(/[^\w\s-]/g, '')
+        .trim()
+        .replace(/\s+/g, '-');
 }
 
 const CitiesTable = () => {
@@ -23,11 +24,11 @@ const CitiesTable = () => {
         try {
             setIsLoading(true);
             const newCities = await fetchCities(offset, 20);
-            setCities((prevCities) => [...prevCities, ...newCities]);
-            setOffset((prevOffset) => prevOffset + 20);
+            setCities((prev) => [...prev, ...newCities]);
+            setOffset((prev) => prev + 20);
             if (newCities.length === 0) setHasMore(false);
         } catch (error) {
-            console.error('Error loading more cities:', error);
+            console.error('Error loading cities:', error);
         } finally {
             setIsLoading(false);
         }
@@ -61,8 +62,9 @@ const CitiesTable = () => {
                         <tr key={city.id}>
                             <td>
                                 <Link href={`/city/${encodeURIComponent(slugifyCityName(city.name))}?country=${city.countryCode}`}>
-                                    {city.name}
-                                </Link>
+  {slugifyCityName(city.name)}
+</Link>
+
                             </td>
                             <td>{city.country}</td>
                             <td>{city.timezone}</td>

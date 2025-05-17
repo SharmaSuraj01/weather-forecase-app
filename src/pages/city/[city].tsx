@@ -1,4 +1,3 @@
-// filepath: src/pages/city/[city].tsx
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import WeatherCard from '../../components/WeatherCard';
@@ -8,7 +7,7 @@ import { WeatherData, WeatherForecast } from '../../types/weather';
 
 const CityWeather = () => {
     const router = useRouter();
-    const { city } = router.query; // Get the city name from the URL
+    const { city, original } = router.query; // city is slug, original is real name
 
     const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
     const [forecastData, setForecastData] = useState<WeatherForecast[]>([]);
@@ -16,11 +15,11 @@ const CityWeather = () => {
     const [error, setError] = useState('');
 
     useEffect(() => {
-        if (city) {
+        if (original) {
             const loadWeather = async () => {
                 try {
-                    const currentWeather = await fetchCurrentWeather(city as string);
-                    const forecast = await fetchWeatherForecast(city as string);
+                    const currentWeather = await fetchCurrentWeather(original as string);
+                    const forecast = await fetchWeatherForecast(original as string);
                     setWeatherData(currentWeather);
                     setForecastData(forecast);
                 } catch (err) {
@@ -32,14 +31,14 @@ const CityWeather = () => {
 
             loadWeather();
         }
-    }, [city]);
+    }, [original]);
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>{error}</div>;
 
     return (
         <div>
-            <WeatherCard weatherData={weatherData} cityName={city as string} />
+            <WeatherCard weatherData={weatherData} cityName={original as string} />
             <WeatherForecastCard forecastData={forecastData} />
         </div>
     );
