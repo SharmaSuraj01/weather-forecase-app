@@ -5,13 +5,15 @@ export interface WeatherData {
         pressure: number;
     };
     weather: {
+        main: string;
         description: string;
+        icon: string;
     }[];
     wind: {
         speed: number;
     };
-    name: string; // City name
 }
+
 
 export interface WeatherForecast {
     dt: number; // Timestamp

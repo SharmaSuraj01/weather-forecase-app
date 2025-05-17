@@ -1,9 +1,7 @@
 export interface City {
-    id: number;
+    id: string | number;
     name: string;
     country: string;
+    countryCode: string;
     timezone: string;
-    population: number;
-    latitude: number;
-    longitude: number;
 }
